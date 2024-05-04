@@ -2,11 +2,6 @@
 <html>
   <head>
     <title>Address Autocomplete Example</title>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_MAPS_KEY&libraries=places&callback=initAutocomplete"
-      async
-      defer
-    ></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -43,5 +38,24 @@
         <!-- Warning message will be inserted here -->
       </div>
     </div>
+
+    <script>
+      // Load Google Maps API key from environmental variable
+      const googleMapsAPIKey = process.env.TERRA_GOOGLE_MAPS_API_KEY;
+
+      // Check if API key is available
+      if (!googleMapsAPIKey) {
+        console.error("Google Maps API key not provided.");
+      } else {
+        // Dynamically create script element and set its source with API key
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsAPIKey}&libraries=places&callback=initAutocomplete`;
+        script.async = true;
+        script.defer = true;
+
+        // Append script to document body
+        document.body.appendChild(script);
+      }
+    </script>
   </body>
 </html>
