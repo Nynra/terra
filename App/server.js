@@ -14,8 +14,16 @@ const port = 3000;
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 
-// Replace 'YOUR_OPENAI_API_KEY' with your OpenAI API key
-const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY";
+// // Replace 'YOUR_OPENAI_API_KEY' with your OpenAI API key
+// const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY";
+
+// Read the OpenAI API key from the environment variables
+const OPENAI_API_KEY = process.env.TERRA_OPENAI_API_KEY;
+
+if (!OPENAI_API_KEY) {
+  console.error("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.");
+  process.exit(1);
+}
 
 app.post("/generate-trail", async (req, res) => {
   const { prompt } = req.body;
